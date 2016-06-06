@@ -79,16 +79,33 @@ public class ListUnmarshaller<T> implements
             return null;
         }
 
+        boolean isArray = false;
         while (true) {
-            JsonToken token = context.nextToken();
+            JsonToken token = context.getCurrentToken();
             if (token == null)
                 return list;
 
             if (token == JsonToken.START_ARRAY) {
-                continue;
-            } else if (token == END_ARRAY || token == END_OBJECT) {
-                if (context.getCurrentDepth() < originalDepth)
+                isArray = true;
+                context.nextToken();
+
+            } else if (token == JsonToken.VALUE_STRING) {
+                list.add(itemUnmarshaller.unmarshall(context));
+
+                if (isArray) {
+                    context.nextToken();
+                } else {
                     return list;
+                }
+
+            } else if (token == END_ARRAY || token == END_OBJECT) {
+                isArray = false;
+
+                if (context.getCurrentDepth() < originalDepth) {
+                    return list;
+                } else {
+                    context.nextToken();
+                }
             } else {
                 list.add(itemUnmarshaller.unmarshall(context));
             }
