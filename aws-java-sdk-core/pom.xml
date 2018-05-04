@@ -8,7 +8,7 @@
     <version>1.11.6</version>
   </parent>
   <groupId>twigkit</groupId>
-  <version>1.11.6</version>
+  <version>1.11.7-SNAPSHOT</version>
   <artifactId>aws-java-sdk-core</artifactId>
   <name>AWS SDK for Java - Core</name>
   <description>The AWS SDK for Java - Core module holds the classes that is used by the individual service clients to interact with Amazon Web Services. Users need to depend on aws-java-sdk artifact for accessing individual client classes.</description>
